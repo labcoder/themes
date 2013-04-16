@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{Title}{block:PostTitle} - {PostTitle}{/block:PostTitle}</title>
+    <meta property="og:title" content="{Title}" />
+    <meta property="og:site_name" content="{Title}" />
+    <meta name="description" content="{MetaDescription}" />
+    <meta property="og:description" content="{MetaDescription}" />
+    <meta property="og:url" content="{PortraitURL-64}" />
+    <meta property="og:type" content="blog" />
+    <link rel="alternate" type="application/rss+xml" href="{RSS}">
+
+    <!-- Assets -->
+    <link rel="stylesheet" href="http://static.tumblr.com/wnbaxc4/lNxml6h9k/normalize.css" />
+    <link rel="stylesheet" href="http://static.tumblr.com/wnbaxc4/A55ml6ho9/foundation.css" />
+    <link rel="stylesheet" href="http://static.tumblr.com/wnbaxc4/26Cmlca05/ficons.css" />
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href="{Favicon}" rel="icon" type="image/x-icon" />
+    <script src="http://static.tumblr.com/wnbaxc4/qoKml6hky/modernizr.js"></script>
+
+
+    <!-- Custom Properties -->
+    <meta name="if:Sticky Top Bar" content="1" />
+    <meta name="if:Search" content="1" />
+    <meta name="if:Infinite Scroll" content="1" />
+    <meta name="if:Show Post Divider" content="0" />
+    <meta name="if:Use Discus" content="0" />
+    <meta name="color:Background" content="#FCFCFC" />
+    <meta name="color:Panel Background" content="#f2f2f2" />
+    <meta name="color:Body Text" content="#020202" />
+    <meta name="color:Panel Text" content="#030303" />
+    <meta name="color:Icon Hover" content="#2ba6cb" />
+    <meta name="text:Discus Username" content="" />
+
+    <style>
+      body, h1, h2, h3, h4, h5, h6 {
+        font-family: 'PT Sans', sans-serif;
+      }
+      body {
+        background-color: {color:Background};
+        color: {color:Body Text};
+      }
+      .contain-to-grid.fixed, .contain-to-grid.sticky {
+        height: 45px;
+      }
+      .panel {
+        background-color: {color:Panel Background};
+      }
+      .panel p {
+        color: {color:Panel Text};
+      }
+      [class*="foundicon-"]:hover {
+        color: {color:Icon Hover};
+      }
+      .blog-icon {
+        font-size: 50px;
+      }
+      .notes-count-icon {
+        font-size: 12px;
+      }
+      .foundicon-text:before {
+        content: "\f01a";
+        color: #474747;
+      }
+      .foundicon-photo:before {
+        color: #D86043;
+      }
+      .foundicon-quote:before {
+        color: #F19F35;
+      }
+      .foundicon-link:before {
+        content: "\f012";
+        color: #57BC8A;
+      }
+      .foundicon-chat:before, .foundicon-answer:before {
+        font-family: "SocialFoundicons";
+        color: #4EA8D7;
+      } 
+      .foundicon-audio:before {
+        content: "\f023";
+        color: #AB7DC2;
+      }
+      .foundicon-video:before {
+        color: #77828D;
+      }
+      .main-column {
+        border-left: 1px solid #ddd;
+      }
+      .post-div {
+        padding-bottom: 15px;
+        padding-left: 5px;
+      }
+      .tag-label {
+        font-size: 11px;
+      }
+
+      #disqus_thread {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      {CustomCSS}
+    </style>
+  </head>
+  <body>
+    <div class="contain-to-grid {block:IfStickyTopBar}sticky{/block:IfStickyTopBar}">
+      <div class="top-bar">
+        <ul class="title-area">
+          <li class="name" onclick="void(0);">
+            <h1><a href="/" style="display:inline">{Title}</a><a href="#" class="toggle-nav" style="display:inline"><i class="general foundicon-plus" style="font-size:10px"></i></a></h1>
+          </li>
+          <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+        </ul>
+
+        <section class="top-bar-section">
+          <!-- Right Nav Section -->
+          <ul class="right">
+            {block:HasPages}
+              {block:Pages}
+                <li class="divider"></li>
+                <li><a href="{Url}">{Label}</a></li>
+              {/block:Pages}
+            {/block:HasPages}
+
+            {block:IfSearch}
+              <li class="has-form">
+                <form action="/search" method="get">
+                  <div class="row collapse">
+                    <div class="small-8 columns">
+                      <input type="text" name="q" value="{SearchQuery}" placeholder="Search..." />
+                    </div>
+                    <div class="small-4 columns">
+                      <button type="submit" class="alert button"><i class="general foundicon-search"></i></button>
+                    </div>
+                  </div>
+                </form>
+              </li>
+            {/block:IfSearch}
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <!-- Description Drop Down-->
+    <div class="container" id="megaDrop" style="display: none;">
+      <div class="mobile-main-nav-padding">
+        <div class="row">
+          <div class="large-2 columns"><img src="{PortraitURL-128}" /></div>
+          <div class="large-8 push-2"><p>{Description}</p></div>
+        </div>
+      </div>
+    </div>
+
+    <center><h1>{Title}</h1></center>
+
+    {block:IfInfiniteScroll}
+      <div class="autopagerize_page_element">
+    {/block:IfInfiniteScroll}
+
+    {block:Posts}
+      <div class="row post-div" id="{PostID}">
+        <div class="large-1 small-4 columns">
+          <center>
+            <a href="{Permalink}"><i class="general foundicon-{PostType} blog-icon"></i></a>
+            <br />
+            {block:Date}
+              {TimeAgo}
+            {/block:Date}
+            <br /><br />
+            {block:RebloggedFrom}
+              <a href="{ReblogRootURL}"><span class="radius secondary label tag-label">(via)</span></a>
+            {/block:RebloggedFrom}
+            {block:NotReblog}
+              <span class="radius success label tag-label">OC</span>
+            {/block:NotReblog}
+            <br /><br />
+            <span><i class="general foundicon-heart notes-count-icon"> {NoteCount}</i></span>
+          </center>
+        </div>
+        <div class="large-11 small-8 columns main-column">
+          
+          <!-- Text Posts -->
+          {block:Text}
+            {block:Title}
+              <h2><a href="{Permalink}">{Title}</a></h2>
+            {/block:Title}
+            <p>{Body}</p>
+            {block:HasTags}
+              <hr>
+              {block:Tags}
+                <a href="{TagUrl}"><span class="radius label tag-label">{Tag}</span></a>
+              {block:Tags}
+            {/block:HasTags}
+          {/block:Text}
+
+          <!-- Photo Posts -->
+          {block:Photo}
+            <div class="row">
+              <div class="large-7 columns">
+                {LinkOpenTag}
+                  <img src="{PhotoURL-500}" alt="{PhotoAlt}"/>
+                {LinkCloseTag}
+              </div>
+              <div class="large-4 columns">
+                {block:HighRes}
+                  <a href="{PhotoURL-HighRes}">View in High-Res</a>
+                {block:HighRes}
+                <br />
+                {block:Caption}
+                  {Caption}
+                {/block:Caption}
+
+                {block:Exif}
+                  <ul>
+                    {block:Camera}
+                      <li>Camera: {Camera}</li>
+                    {/block:Camera}
+                    {block:Aperture}
+                      <li>Aperture: {Aperture}</li>
+                    {/block:Aperture}
+                    {block:Exposure}
+                      <li>Exposure: {Exposure}</li>
+                    {/block:Exposure}
+                    {block:FocalLength}
+                      <li>Focal Length: {FocalLength}</li>
+                    {/block:FocalLength}
+                  </ul>
+                {/block:Exif}
+
+                {block:HasTags}
+                  <hr>
+                  {block:Tags}
+                    <a href="{TagUrl}"><span class="radius label tag-label">{Tag}</span></a>
+                  {block:Tags}
+                {/block:HasTags}
+              </div>
+            </div>
+          {/block:Photo}
+
+          <!-- Panorama Posts -->
+          {block:Panorama}
+            {LinkOpenTag}<img src="{PhotoURL-Panorama}" alt="{PhotoAlt}" />{LinkCloseTag}
+            {block:HighRes}<a href="{PhotoURL-HighRes}">View in High-Res</a>{/block:HighRes}
+            {block:Caption}
+              {Caption}
+            {/block:Caption}
+
+            {block:Exif}
+              {block:Camera}
+                <span><strong>Camera</strong>: {Camera}</span>
+              {/block:Camera}
+              {block:Aperture}
+                <span><strong>Aperture: {Aperture}</span>
+              {/block:Aperture}
+              {block:Exposure}
+                <span><strong>Exposure: {Exposure}</span>
+              {/block:Exposure}
+              {block:FocalLength}
+                <span><strong>Focal Length: {FocalLength}</span>
+              {/block:FocalLength}
+            {/block:Exif}
+
+            {block:HasTags}
+              <hr>
+              {block:Tags}
+                <a href="{TagUrl}"><span class="radius label tag-label">{Tag}</span></a>
+              {block:Tags}
+            {/block:HasTags}
+          {/block:Panorama}
+
+          <!-- Photoset Posts -->
+          {block:Photoset}
+            <div class="row">
+              <div class="large-7 columns">
+                {Photoset-500}
+              </div>
+              <div class="large-4 columns">
+                {block:Caption}
+                  {Caption}
+                {/block:Caption}
+
+                {block:HasTags}
+                  <hr>
+                  {block:Tags}
+                    <a href="{TagUrl}"><span class="radius label tag-label">{Tag}</span></a>
+                  {block:Tags}
+                {/block:HasTags}
+              </div>
+            </div>
+          {/block:Photoset}
+
+          <!-- Quote Posts -->
+          {block:Quote}
+            <blockquote>
+              {Quote}
+              {block:Source}
+                <cite>{Source}</cite>
+              {/block:Source}
+            </blockquote>
+
+            {block:HasTags}
+              <hr>
+              {block:Tags}
+                <a href="{TagUrl}"><span class="radius label tag-label">{Tag}</span></a>
+              {block:Tags}
+            {/block:HasTags}
+          {/block:Quote}
+
+          <!-- Link Posts -->
+          {block:Link}
+            <h2><a href="{URL}"{Target}>{Name}</a></h2>
+            {block:Description}
+              <p>{Description}</p>
+            {/block:Description}
+
+            {block:HasTags}
+              <hr>
+              {block:Tags}
+                <a href="{TagUrl}"><span class="radius label tag-label">{Tag}</span></a>
+              {block:Tags}
+            {/block:HasTags}
+          {/block:Link}
+
+          <!-- Chat Posts -->
+          {block:Chat}
+            <div class="row">
+              {block:Title}
+                <h2><a href="{Permalink}">{Title}</a></h2>
+              {/block:Title}
+              <div class="large-7 columns">
+                <table>
+                  <thead>
+                    <tr>
+                      <th width="100"></th>
+                      <th width="400"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {block:Lines}
+                      <tr>
+                        {block:Label}
+                          <td>{Label}</td>
+                        {/block:Label}
+                        <td>{Line}</td>
+                      </tr>
+                    {/block:Lines}
+                  </tbody>
+                </table>
+              </div>
+              <div class="large-4 columns">
+                {block:HasTags}
+                  {block:Tags}
+                    <a href="{TagUrl}"><span class="radius label tag-label">{Tag}</span></a>
+                  {block:Tags}
+                {/block:HasTags}
+              </div>
+            </div>
+          {/block:Chat}
+
+          <!-- Audio Posts -->
+          {block:Audio}
+            <div class="row">
+                <div class="large-7 columns">
+                  {block:AudioEmbed}
+                    {AudioEmbed-500}
+                  {/block:AudioEmbed}
+                  {block:AudioPlayer}
+                    {AudioPlayerBlack}
+                  {/block:AudioPlayer}
+
+                  {block:Caption}
+                    {Caption}
+                  {/block:Caption}
+
+                  <span class="radius secondary label">{PlayCountWithLabel}</span>
+                  {block:ExternalAudio}
+                    <span class="round alert label"><a href="{ExternalAudioURL}">Download</a></span>
+                  {/block:ExternalAudio}
+                </div>
+                <div class="large-4 columns">
+                  {block:AlbumArt}
+                    <img src="{AlbumArtURL}" />
+                  {/block:AlbumArt}
+
+                  {block:Artist}
+                    {Artist}
+                  {/block:Artist}
+
+                  {block:Album}
+                    {Album}
+                  {/block:Album}
+
+                  {block:TrackName}
+                    {TrackName}
+                  {/block:TrackName}
+                </div>
+                {block:HasTags}
+                  <hr>
+                  {block:Tags}
+                    <a href="{TagUrl}"><span class="radius label tag-label">{Tag}</span></a>
+                  {block:Tags}
+                {/block:HasTags}
+              </div>
+            {/block:Audio}
+
+            <!-- Video Posts -->
+            {block:Video}
+              <div class="row">
+                <div class="large-7 columns">
+                  {Video-500}
+                  <span class="radius secondary label">{PlayCountWithLabel}</span>
+                </div>
+                <div class="large-4 columns">
+                  {block:Caption}
+                    {Caption}
+                  {/block:Caption}
+
+                  {block:HasTags}
+                    <hr>
+                    {block:Tags}
+                      <a href="{TagUrl}"><span class="radius label tag-label">{Tag}</span></a>
+                    {block:Tags}
+                  {/block:HasTags}
+                </div>
+              </div>
+            {/block:Video}
+
+            <!-- Answer Posts -->
+            {block:Answer}
+              <div class="row">
+                <div class="large-2 small-6 columns">
+                  <img src="{AskerPortraitURL-96}" />
+                </div>
+                <div class="large-10 small-6 columns">
+                  <h4><strong>{Asker} asks:</strong></h4>
+                  <p>{Question}</p>
+                </div>
+              </div>
+              <h4><strong>Answer:</strong></h4>
+              <p>{Answer}</p>
+
+              {block:HasTags}
+                <hr>
+                {block:Tags}
+                  <a href="{TagUrl}"><span class="radius label tag-label">{Tag}</span></a>
+                {block:Tags}
+              {/block:HasTags}
+            {/block:Answer}
+        </div>
+      </div>
+      {block:IfShowPostDivider}<hr />{/block:IfShowPostDivider}
+    {/block:Posts}
+
+    {block:PermalinkPage}
+      {block:IfUseDiscus}
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+          var disqus_shortname = '{text:Discus Username}'; // required: replace example with your forum shortname
+
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        <hr />
+      {/block:IfUseDiscus}
+    {block:PermalinkPage}
+
+    {block:IfInfiniteScroll}
+    </div>
+    {/block:IfInfiniteScroll}
+
+    {block:IfNotInfiniteScroll}
+      {block:Pagination}
+        <div class="pagination-centered">
+          <ul class="pagination">
+            {block:PreviousPage}
+              <li class="arrow"><a href="{PreviousPage}">&laquo;</a></li>  
+            {/block:PreviousPage}
+
+            {block:JumpPagination length="5"}
+              {block:CurrentPage}
+                <li class="current"><a href="{URL}">{PageNumber}</a></li>
+              {/block:CurrentPage}
+
+              {block:JumpPage}
+                <li><a href="{URL}">{PageNumber}</a></li>
+              {/block:JumpPage}
+            {/block:JumpPagination}
+
+            {block:NextPage}
+              <li class="arrow"><a href="{NextPage}">&raquo;</a></li>
+            {/block:NextPage}
+          </ul>
+        </div>
+      {/block:Pagination}
+    {/block:IfNotInfiniteScroll}
+
+    <!-- Footer -->
+    <div class="row post-div" id="footer">
+      <div class="large-9 push-3 columns"><a href="http://foundertheme.tumblr.com">Founder Theme</a> made with &lt;3 by <a href="http://labcoder.com">LabCoder</a></div>
+      <div class="large-3 pull-9 columns">&copy; {CopyrightYears}</div>
+    </div>
+
+
+    <script src="http://static.tumblr.com/wnbaxc4/jo9ml6hlx/zepto.js"></script>
+    <script src="http://static.tumblr.com/wnbaxc4/6ilml6hmf/jquery.js"></script>
+    <script src="http://static.tumblr.com/wnbaxc4/cJpml6his/foundation.js"></script>
+    <script type="text/javascript" src="http://static.tumblr.com/wnbaxc4/Kurmlcdl4/infscroll.js"></script>
+    <script>
+      $(document).foundation();
+      (function(a){a(function(){a(".toggle-nav").on("click",function(b){var c=a(b.currentTarget);c.hasClass("open")?(c.removeClass("open"),a("#megaDrop").slideUp(400)):(c.addClass("open"),a("#megaDrop").slideDown(400))})})})(jQuery);
+    </script>
+  </body>
+</html>
+
+<!--
+  Name:     Founder theme
+  By:       Oscar Sanchez
+  Twitter:  @oms1005
+  Github:   http://github.com/labcoder
+  Website:  http://labcoder.com
+-->

@@ -1,0 +1,10 @@
+normalize.css - http://static.tumblr.com/wnbaxc4/lNxml6h9k/normalize.css
+foundation.css - http://static.tumblr.com/wnbaxc4/A55ml6ho9/foundation.css
+modernizr.js - http://static.tumblr.com/wnbaxc4/qoKml6hky/modernizr.js
+zepto.js - http://static.tumblr.com/wnbaxc4/jo9ml6hlx/zepto.js
+jquery.js - http://static.tumblr.com/wnbaxc4/6ilml6hmf/jquery.js
+foundation.js - http://static.tumblr.com/wnbaxc4/cJpml6his/foundation.js
+
+-- custom --
+founder-icons.css - http://static.tumblr.com/wnbaxc4/26Cmlca05/ficons.css
+infinite scroll - http://static.tumblr.com/wnbaxc4/Kurmlcdl4/infscroll.js

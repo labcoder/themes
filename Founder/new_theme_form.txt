@@ -1,0 +1,5 @@
+Name: Founder
+
+Summary: Founder is a mobile-first, clean and flat theme based on frameworks like Zurb's Foundation. It is incredibly responsive, and highly customizable.
+
+Description
